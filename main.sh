@@ -10,10 +10,13 @@ if [ -z "$1" ]; then
     echo "Available commands:"
     echo "  init                                      - Add 'enman-demo' alias to shell config"
     echo "  setup <project-name> <target-directory>  - Copy .env files from project to target directory"
+    echo "  projects <action> [arguments]             - Manage projects (create, list, archive, delete)"
     echo ""
     echo "Examples:"
     echo "  $0 init"
     echo "  $0 setup hayati /path/to/target"
+    echo "  $0 projects create my-app"
+    echo "  $0 projects list"
     exit 1
 fi
 
@@ -61,12 +64,16 @@ case "$COMMAND" in
     setup)
         "$SCRIPT_DIR/setup.sh" "$@"
         ;;
+    projects)
+        "$SCRIPT_DIR/projects.sh" "$@"
+        ;;
     *)
         echo "Error: Unknown command '$COMMAND'"
         echo ""
         echo "Available commands:"
         echo "  init                                      - Add 'enman-demo' alias to shell config"
         echo "  setup <project-name> <target-directory>  - Copy .env files from project to target directory"
+        echo "  projects <action> [arguments]             - Manage projects (create, list, archive, delete)"
         exit 1
         ;;
 esac
