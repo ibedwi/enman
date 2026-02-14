@@ -3,7 +3,7 @@
 # Check if both arguments are provided
 if [ -z "$1" ] || [ -z "$2" ]; then
     echo "Usage: $0 <project-name> <target-directory>"
-    echo "Example: $0 hayati /path/to/target"
+    echo "Example: $0 my-cool-project /path/to/target"
     echo ""
     echo "This script will:"
     echo "  1. Find all .env files in ./projects/<project-name>"

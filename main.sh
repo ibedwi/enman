@@ -10,11 +10,14 @@ if [ -z "$1" ]; then
     echo "Available commands:"
     echo "  init                                      - Add 'enman-demo' alias to shell config"
     echo "  setup <project-name> <target-directory>  - Copy .env files from project to target directory"
+    echo "  scan <project-name> [directory]           - Scan directory for .env files and save to project"
     echo "  projects <action> [arguments]             - Manage projects (create, list, archive, delete)"
     echo ""
     echo "Examples:"
     echo "  $0 init"
-    echo "  $0 setup hayati /path/to/target"
+    echo "  $0 setup my-cool-project /path/to/target"
+    echo "  $0 scan my-app"
+    echo "  $0 scan my-app /path/to/monorepo"
     echo "  $0 projects create my-app"
     echo "  $0 projects list"
     exit 1
@@ -59,10 +62,13 @@ case "$COMMAND" in
         echo ""
         echo "Or restart your terminal session."
         echo ""
-        echo "Then you can use: enman-demo setup hayati /path/to/target"
+        echo "Then you can use: enman-demo setup my-cool-project /path/to/target"
         ;;
     setup)
         "$SCRIPT_DIR/setup.sh" "$@"
+        ;;
+    scan)
+        "$SCRIPT_DIR/scan.sh" "$@"
         ;;
     projects)
         "$SCRIPT_DIR/projects.sh" "$@"
@@ -73,6 +79,7 @@ case "$COMMAND" in
         echo "Available commands:"
         echo "  init                                      - Add 'enman-demo' alias to shell config"
         echo "  setup <project-name> <target-directory>  - Copy .env files from project to target directory"
+        echo "  scan <project-name> [directory]           - Scan directory for .env files and save to project"
         echo "  projects <action> [arguments]             - Manage projects (create, list, archive, delete)"
         exit 1
         ;;
