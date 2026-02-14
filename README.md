@@ -13,18 +13,23 @@ Provide a lightweight way to spin up and manage per-worktree shell environments 
 - Standardize environment bootstrapping for local development.
 - Stay script-first and easy to customize.
 
-## Quick Start
-
-1. Initialize the shell alias:
+## Install
 
 ```bash
-./main.sh init
+curl -sSL https://raw.githubusercontent.com/ibedwi/enman/main/install.sh | bash
+```
+
+Then reload your shell:
+
+```bash
 source ~/.zshrc   # or source ~/.bashrc
 ```
 
-This creates an `enman-demo` alias that points to `main.sh`.
+This clones enman to `~/.enman/bin/` and adds an `enman` alias to your shell config.
 
-2. Prepare your project env templates under:
+## Quick Start
+
+1. Prepare your project env templates under:
 
 ```text
 ~/.enman/projects/<project-name>/...
@@ -32,17 +37,19 @@ This creates an `enman-demo` alias that points to `main.sh`.
 
 All project data is stored in `~/.enman/` in your home directory. You can override this by setting the `ENMAN_HOME` environment variable.
 
-3. Copy env files into a target worktree directory:
+2. Copy env files into a target worktree directory:
 
 ```bash
-enman-demo setup <project-name> <target-directory>
+enman setup <project-name> <target-directory>
 # example
-enman-demo setup my-cool-project /path/to/worktree
+enman setup my-cool-project /path/to/worktree
 ```
 
 The command copies all `.env` files from `~/.enman/projects/<project-name>` to `<target-directory>`, preserving directory structure.
 
 ## CLI Commands
 
-- `./main.sh init`
-- `./main.sh setup <project-name> <target-directory>`
+- `enman setup <project-name> <target-directory>`
+- `enman scan <project-name> [directory]`
+- `enman projects <action> [arguments]`
+- `enman update`

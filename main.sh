@@ -12,6 +12,7 @@ if [ -z "$1" ]; then
     echo "  setup <project-name> <target-directory>  - Copy .env files from project to target directory"
     echo "  scan <project-name> [directory]           - Scan directory for .env files and save to project"
     echo "  projects <action> [arguments]             - Manage projects (create, list, archive, delete)"
+    echo "  update                                    - Update enman to the latest version"
     echo ""
     echo "Examples:"
     echo "  $0 init"
@@ -73,6 +74,9 @@ case "$COMMAND" in
     projects)
         "$SCRIPT_DIR/projects.sh" "$@"
         ;;
+    update)
+        "$SCRIPT_DIR/update.sh"
+        ;;
     *)
         echo "Error: Unknown command '$COMMAND'"
         echo ""
@@ -81,6 +85,7 @@ case "$COMMAND" in
         echo "  setup <project-name> <target-directory>  - Copy .env files from project to target directory"
         echo "  scan <project-name> [directory]           - Scan directory for .env files and save to project"
         echo "  projects <action> [arguments]             - Manage projects (create, list, archive, delete)"
+        echo "  update                                    - Update enman to the latest version"
         exit 1
         ;;
 esac
