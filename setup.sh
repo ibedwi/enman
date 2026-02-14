@@ -6,7 +6,7 @@ if [ -z "$1" ] || [ -z "$2" ]; then
     echo "Example: $0 my-cool-project /path/to/target"
     echo ""
     echo "This script will:"
-    echo "  1. Find all .env files in ./projects/<project-name>"
+    echo "  1. Find all .env files in ~/.enman/projects/<project-name>"
     echo "  2. Copy them to the target directory preserving the directory structure"
     exit 1
 fi
@@ -14,14 +14,14 @@ fi
 PROJECT_NAME="$1"
 TARGET_DIR="$2"
 
-# Get the script's directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE_DIR="$SCRIPT_DIR/projects/$PROJECT_NAME"
+# Base directory for enman data
+ENMAN_DIR="${ENMAN_HOME:-$HOME/.enman}"
+SOURCE_DIR="$ENMAN_DIR/projects/$PROJECT_NAME"
 
 # Check if the project directory exists
 if [ ! -d "$SOURCE_DIR" ]; then
     echo "Error: Project directory does not exist: $SOURCE_DIR"
-    echo "Please ensure ./projects/$PROJECT_NAME exists"
+    echo "Please ensure the project '$PROJECT_NAME' has been created"
     exit 1
 fi
 

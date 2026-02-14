@@ -27,10 +27,10 @@ This creates an `enman-demo` alias that points to `main.sh`.
 2. Prepare your project env templates under:
 
 ```text
-./projects/<project-name>/...
+~/.enman/projects/<project-name>/...
 ```
 
-`setup.sh` searches this tree for files named `.env`.
+All project data is stored in `~/.enman/` in your home directory. You can override this by setting the `ENMAN_HOME` environment variable.
 
 3. Copy env files into a target worktree directory:
 
@@ -40,7 +40,7 @@ enman-demo setup <project-name> <target-directory>
 enman-demo setup my-cool-project /path/to/worktree
 ```
 
-The command copies all `.env` files from `./projects/<project-name>` to `<target-directory>`, preserving directory structure.
+The command copies all `.env` files from `~/.enman/projects/<project-name>` to `<target-directory>`, preserving directory structure.
 
 ## CLI Commands
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Get the script's directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECTS_DIR="$SCRIPT_DIR/projects"
+# Base directory for enman data
+ENMAN_DIR="${ENMAN_HOME:-$HOME/.enman}"
+PROJECTS_DIR="$ENMAN_DIR/projects"
 
 # Check if action is provided
 if [ -z "$1" ]; then

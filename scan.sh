@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Get the script's directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECTS_DIR="$SCRIPT_DIR/projects"
+# Base directory for enman data
+ENMAN_DIR="${ENMAN_HOME:-$HOME/.enman}"
+PROJECTS_DIR="$ENMAN_DIR/projects"
 
 # Check if project name is provided
 if [ -z "$1" ]; then
@@ -12,7 +12,7 @@ if [ -z "$1" ]; then
     echo ""
     echo "This script will:"
     echo "  1. Recursively scan the directory for .env files"
-    echo "  2. Copy them to ./projects/<project-name> preserving directory structure"
+    echo "  2. Copy them to ~/.enman/projects/<project-name> preserving directory structure"
     echo ""
     echo "If no scan directory is provided, the current working directory is used."
     exit 1
