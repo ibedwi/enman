@@ -52,3 +52,4 @@ The command copies all `.env` files from `~/.enman/projects/<project-name>` to `
 - `enman setup <project-name> <target-directory>`
 - `enman scan <project-name> [directory]`
 - `enman projects <action> [arguments]`
+- `enman update`
