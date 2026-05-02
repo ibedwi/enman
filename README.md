@@ -32,18 +32,21 @@ This clones enman to `~/.enman/bin/` and adds an `enman` alias to your shell con
 1. Prepare your project env templates under:
 
 ```text
-~/.enman/projects/<project-name>/...
+~/.enman/projects/<project-name>/environments/<env>/...
 ```
 
-All project data is stored in `~/.enman/` in your home directory. You can override this by setting the `ENMAN_HOME` environment variable.
+All project data is stored in `~/.enman/` in your home directory. You can override this by setting the `ENMAN_HOME` environment variable. Each project holds one or more environments (e.g. `development`, `staging`, `production`).
 
 2. Scan your project to capture env files:
 
 ```bash
-enman scan <project-name> [directory] [--include <pattern>]...
+enman scan <project-name> [directory] [--env <env>] [--include <pattern>]...
 
-# Scan for .env files (default)
+# Scan for .env files into the default 'development' environment
 enman scan my-app
+
+# Scan into a specific environment
+enman scan my-app --env staging
 
 # Scan for all .env variants
 enman scan my-app --include ".env*"
@@ -51,25 +54,28 @@ enman scan my-app --include ".env*"
 # Scan for multiple patterns
 enman scan my-app --include ".env*" --include "config.yaml"
 
-# Scan a specific directory
-enman scan my-app /path/to/monorepo --include ".env*"
+# Scan a specific directory into staging
+enman scan my-app /path/to/monorepo --env staging --include ".env*"
 ```
 
-The `--include` flag specifies file patterns to scan for (can be repeated). Defaults to `.env` if not specified. A `.enman` manifest file is written to the project directory listing the patterns used and all included files.
+The `--env` flag selects which environment to scan into (defaults to `development`). The `--include` flag specifies file patterns to scan for (can be repeated). Defaults to `.env` if not specified. A `.enman` manifest file is written to the env directory listing the patterns used and all included files.
 
 3. Copy files into a target worktree directory:
 
 ```bash
-enman setup <project-name> <target-directory>
-# example
+enman setup <project-name> <target-directory> [--env <env>]
+# example (uses 'development' by default)
 enman setup my-cool-project /path/to/worktree
+# example (specific env)
+enman setup my-cool-project /path/to/worktree --env staging
 ```
 
-The command copies all files from `~/.enman/projects/<project-name>` to `<target-directory>`, preserving directory structure. Metadata files (`.archived`, `.enman`) are excluded.
+The command copies all files from `~/.enman/projects/<project-name>/environments/<env>/` to `<target-directory>`, preserving directory structure. Metadata files (`.archived`, `.enman`) are excluded.
 
 ## CLI Commands
 
-- `enman setup <project-name> <target-directory>`
-- `enman scan <project-name> [directory] [--include <pattern>]...`
+- `enman setup <project-name> <target-directory> [--env <env>]`
+- `enman scan <project-name> [directory] [--env <env>] [--include <pattern>]...`
 - `enman projects <action> [arguments]`
+- `enman environments <action> <project-name> [env-name]`
 - `enman update`

@@ -8,21 +8,26 @@ if [ -z "$1" ]; then
     echo "Usage: $0 <command> [arguments]"
     echo ""
     echo "Available commands:"
-    echo "  init                                                        - Add 'enman-demo' alias to shell config"
-    echo "  setup <project-name> <target-directory>                    - Copy project files to target directory"
-    echo "  scan <project-name> [directory] [--include <pattern>]...   - Scan directory for files and save to project"
-    echo "  projects <action> [arguments]                              - Manage projects (create, list, archive, delete)"
-    echo "  update                                                     - Update enman to the latest version"
+    echo "  init                                                                  - Add 'enman-demo' alias to shell config"
+    echo "  setup <project-name> <target-directory> [--env <env>]                - Copy project files to target directory"
+    echo "  scan <project-name> [directory] [--env <env>] [--include <pattern>]... - Scan directory for files and save to project"
+    echo "  projects <action> [arguments]                                        - Manage projects (create, list, archive, delete)"
+    echo "  environments <action> <project-name> [env-name]                      - Manage environments (list, create, delete)"
+    echo "  update                                                               - Update enman to the latest version"
     echo ""
     echo "Examples:"
     echo "  $0 init"
     echo "  $0 setup my-cool-project /path/to/target"
+    echo "  $0 setup my-cool-project /path/to/target --env staging"
     echo "  $0 scan my-app"
     echo "  $0 scan my-app /path/to/monorepo"
+    echo "  $0 scan my-app --env staging"
     echo "  $0 scan my-app --include \".env*\""
     echo "  $0 scan my-app --include \".env*\" --include \"config.yaml\""
     echo "  $0 projects create my-app"
     echo "  $0 projects list"
+    echo "  $0 environments list my-app"
+    echo "  $0 environments create my-app qa"
     exit 1
 fi
 
@@ -76,6 +81,9 @@ case "$COMMAND" in
     projects)
         "$SCRIPT_DIR/projects.sh" "$@"
         ;;
+    environments)
+        "$SCRIPT_DIR/environments.sh" "$@"
+        ;;
     update)
         "$SCRIPT_DIR/update.sh"
         ;;
@@ -83,11 +91,12 @@ case "$COMMAND" in
         echo "Error: Unknown command '$COMMAND'"
         echo ""
         echo "Available commands:"
-        echo "  init                                                        - Add 'enman-demo' alias to shell config"
-        echo "  setup <project-name> <target-directory>                    - Copy project files to target directory"
-        echo "  scan <project-name> [directory] [--include <pattern>]...   - Scan directory for files and save to project"
-        echo "  projects <action> [arguments]                              - Manage projects (create, list, archive, delete)"
-        echo "  update                                                     - Update enman to the latest version"
+        echo "  init                                                                  - Add 'enman-demo' alias to shell config"
+        echo "  setup <project-name> <target-directory> [--env <env>]                - Copy project files to target directory"
+        echo "  scan <project-name> [directory] [--env <env>] [--include <pattern>]... - Scan directory for files and save to project"
+        echo "  projects <action> [arguments]                                        - Manage projects (create, list, archive, delete)"
+        echo "  environments <action> <project-name> [env-name]                      - Manage environments (list, create, delete)"
+        echo "  update                                                               - Update enman to the latest version"
         exit 1
         ;;
 esac

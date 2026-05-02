@@ -37,7 +37,11 @@ case "$ACTION" in
         fi
 
         mkdir -p "$PROJECT_PATH"
+        mkdir -p "$PROJECT_PATH/environments/development"
+        mkdir -p "$PROJECT_PATH/environments/staging"
+        mkdir -p "$PROJECT_PATH/environments/production"
         echo "Project '$PROJECT_NAME' created at $PROJECT_PATH"
+        echo "Seeded environments: development, staging, production"
         ;;
 
     list)
