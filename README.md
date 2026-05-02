@@ -37,7 +37,27 @@ This clones enman to `~/.enman/bin/` and adds an `enman` alias to your shell con
 
 All project data is stored in `~/.enman/` in your home directory. You can override this by setting the `ENMAN_HOME` environment variable.
 
-2. Copy env files into a target worktree directory:
+2. Scan your project to capture env files:
+
+```bash
+enman scan <project-name> [directory] [--include <pattern>]...
+
+# Scan for .env files (default)
+enman scan my-app
+
+# Scan for all .env variants
+enman scan my-app --include ".env*"
+
+# Scan for multiple patterns
+enman scan my-app --include ".env*" --include "config.yaml"
+
+# Scan a specific directory
+enman scan my-app /path/to/monorepo --include ".env*"
+```
+
+The `--include` flag specifies file patterns to scan for (can be repeated). Defaults to `.env` if not specified. A `.enman` manifest file is written to the project directory listing the patterns used and all included files.
+
+3. Copy files into a target worktree directory:
 
 ```bash
 enman setup <project-name> <target-directory>
@@ -45,11 +65,11 @@ enman setup <project-name> <target-directory>
 enman setup my-cool-project /path/to/worktree
 ```
 
-The command copies all `.env` files from `~/.enman/projects/<project-name>` to `<target-directory>`, preserving directory structure.
+The command copies all files from `~/.enman/projects/<project-name>` to `<target-directory>`, preserving directory structure. Metadata files (`.archived`, `.enman`) are excluded.
 
 ## CLI Commands
 
 - `enman setup <project-name> <target-directory>`
-- `enman scan <project-name> [directory]`
+- `enman scan <project-name> [directory] [--include <pattern>]...`
 - `enman projects <action> [arguments]`
 - `enman update`
