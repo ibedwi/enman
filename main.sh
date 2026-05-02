@@ -13,6 +13,8 @@ if [ -z "$1" ]; then
     echo "  scan <project-name> [directory] [--env <env>] [--include <pattern>]... - Scan directory for files and save to project"
     echo "  projects <action> [arguments]                                        - Manage projects (create, list, archive, delete)"
     echo "  environments <action> <project-name> [env-name]                      - Manage environments (list, create, delete)"
+    echo "  export <project-name> [--env <env>] [--output <file>]                - Bundle a project (or env) as a tar.gz archive"
+    echo "  import <file> [--project <name>] [--env <env>]                       - Restore a project (or env) from a bundle"
     echo "  update                                                               - Update enman to the latest version"
     echo ""
     echo "Examples:"
@@ -28,6 +30,10 @@ if [ -z "$1" ]; then
     echo "  $0 projects list"
     echo "  $0 environments list my-app"
     echo "  $0 environments create my-app qa"
+    echo "  $0 export my-app"
+    echo "  $0 export my-app --env production --output /tmp/prod.tar.gz"
+    echo "  $0 import my-app-20260102-120000.tar.gz"
+    echo "  $0 import bundle.tar.gz --project my-app-copy"
     exit 1
 fi
 
@@ -84,6 +90,12 @@ case "$COMMAND" in
     environments)
         "$SCRIPT_DIR/environments.sh" "$@"
         ;;
+    export)
+        "$SCRIPT_DIR/export.sh" "$@"
+        ;;
+    import)
+        "$SCRIPT_DIR/import.sh" "$@"
+        ;;
     update)
         "$SCRIPT_DIR/update.sh"
         ;;
@@ -96,6 +108,8 @@ case "$COMMAND" in
         echo "  scan <project-name> [directory] [--env <env>] [--include <pattern>]... - Scan directory for files and save to project"
         echo "  projects <action> [arguments]                                        - Manage projects (create, list, archive, delete)"
         echo "  environments <action> <project-name> [env-name]                      - Manage environments (list, create, delete)"
+        echo "  export <project-name> [--env <env>] [--output <file>]                - Bundle a project (or env) as a tar.gz archive"
+        echo "  import <file> [--project <name>] [--env <env>]                       - Restore a project (or env) from a bundle"
         echo "  update                                                               - Update enman to the latest version"
         exit 1
         ;;
